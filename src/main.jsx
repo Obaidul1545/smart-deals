@@ -6,6 +6,11 @@ import { RouterProvider } from 'react-router/dom';
 import RootLayout from './Layouts/RootLayout.jsx';
 import Home from './components/Home/Home.jsx';
 import AllProducts from './components/AllProducts/AllProducts.jsx';
+import AuthProvider from './contexts/AuthProvider.jsx';
+import Register from './components/Register/Register.jsx';
+import Login from './components/Login/Login.jsx';
+import MyProducts from './components/AllProducts/MyProducts/MyProducts.jsx';
+import MyBids from './components/MyBids/MyBids.jsx';
 
 const router = createBrowserRouter([
   {
@@ -20,12 +25,30 @@ const router = createBrowserRouter([
         path: '/allProducts',
         element: <AllProducts></AllProducts>,
       },
+      {
+        path: '/register',
+        element: <Register></Register>,
+      },
+      {
+        path: '/login',
+        element: <Login></Login>,
+      },
+      {
+        path: 'myProducts',
+        element: <MyProducts></MyProducts>,
+      },
+      {
+        path: 'myBids',
+        element: <MyBids></MyBids>,
+      },
     ],
   },
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 );
