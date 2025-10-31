@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link } from 'react-router';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const Login = () => {
+  const { signInGoogle } = use(AuthContext);
+
+  const handleGoogleSignIn = () => {
+    signInGoogle()
+      .then((result) => console.log(result.user))
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   return (
     <div className="card bg-base-100 w-full mx-auto mt-20 max-w-sm shrink-0 shadow-2xl">
       <div className="text-center">
@@ -36,7 +46,10 @@ const Login = () => {
             <button className="btn btn-neutral mt-4">Login</button>
           </fieldset>
         </form>
-        <button className="btn bg-white text-black border-[#e5e5e5]">
+        <button
+          onClick={handleGoogleSignIn}
+          className="btn bg-white text-black border-[#e5e5e5]"
+        >
           <svg
             aria-label="Google logo"
             width="16"
