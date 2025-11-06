@@ -6,12 +6,12 @@ import { getAuth } from 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyBe8Zcylfd1Kp7haZ3VGfIUkDS_4ueAIp8',
-  authDomain: 'smart-deals-dc308.firebaseapp.com',
-  projectId: 'smart-deals-dc308',
-  storageBucket: 'smart-deals-dc308.firebasestorage.app',
-  messagingSenderId: '495504053107',
-  appId: '1:495504053107:web:c2cfffdfa484654d2aab06',
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId,
 };
 
 // Initialize Firebase
