@@ -2,6 +2,7 @@ import React, { use, useEffect, useRef, useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router';
 import { AuthContext } from '../../contexts/AuthContext';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
 
 const ProductDetails = () => {
   const { user } = use(AuthContext);
@@ -13,6 +14,7 @@ const ProductDetails = () => {
   const handleModal = () => {
     modalRef.current.showModal();
   };
+  const axiosSecure = useAxiosSecure();
 
   const handleBids = (e) => {
     e.preventDefault();
@@ -28,16 +30,11 @@ const ProductDetails = () => {
       bid_price: bid,
       status: 'pending',
     };
-    fetch('http://localhost:3000/bids', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(newBid),
-    })
-      .then((res) => res.json())
+
+    axiosSecure
+      .post('/bids', newBid)
       .then((data) => {
-        if (data.insertedId) {
+        if (data.data.insertedId) {
           modalRef.current.close();
           Swal.fire({
             position: 'top-end',
@@ -46,13 +43,39 @@ const ProductDetails = () => {
             showConfirmButton: false,
             timer: 1500,
           });
-          newBid._id = data.insertedId;
+          newBid._id = data.data.insertedId;
           const newBids = [...bids, newBid];
           newBids.sort((a, b) => b.bid_price - a.bid_price);
           setBids(newBids);
         }
       })
       .catch((error) => console.log(error));
+
+    // fetch('http://localhost:3000/bids', {
+    //   method: 'POST',
+    //   headers: {
+    //     'content-type': 'application/json',
+    //   },
+    //   body: JSON.stringify(newBid),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     if (data.insertedId) {
+    //       modalRef.current.close();
+    //       Swal.fire({
+    //         position: 'top-end',
+    //         icon: 'success',
+    //         title: 'Your bid has been placed',
+    //         showConfirmButton: false,
+    //         timer: 1500,
+    //       });
+    //       newBid._id = data.insertedId;
+    //       const newBids = [...bids, newBid];
+    //       newBids.sort((a, b) => b.bid_price - a.bid_price);
+    //       setBids(newBids);
+    //     }
+    //   })
+    //   .catch((error) => console.log(error));
   };
 
   useEffect(() => {

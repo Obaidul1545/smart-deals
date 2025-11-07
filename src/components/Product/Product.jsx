@@ -1,9 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router';
 
 const Product = ({ product }) => {
-  console.log(product._id);
-
   return (
     <div className="card bg-base-100 w-96 shadow-sm">
       <figure>

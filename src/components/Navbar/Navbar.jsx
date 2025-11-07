@@ -30,6 +30,9 @@ const Navbar = () => {
           <li>
             <NavLink to={'/myBids'}>My Bids</NavLink>
           </li>
+          <li>
+            <NavLink to={'/createAProduct'}>Create New</NavLink>
+          </li>
         </>
       )}
     </>

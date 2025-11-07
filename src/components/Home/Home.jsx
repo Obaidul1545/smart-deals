@@ -1,3 +1,4 @@
+import useAuth from '../../Hooks/useAuth';
 import LatestProducts from '../LatestProducts/LatestProducts';
 
 const latestProductsPromise = fetch(
@@ -5,6 +6,9 @@ const latestProductsPromise = fetch(
 ).then((res) => res.json());
 
 const Home = () => {
+  const { user } = useAuth();
+  console.log(user);
+
   return (
     <div className="container mx-auto">
       <LatestProducts
